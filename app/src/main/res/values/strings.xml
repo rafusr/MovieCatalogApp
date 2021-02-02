@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">MovieCatalogApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title">Title</string>
+    <string name="movie">Movie</string>
+    <string name="tvshow">TV Show</string>
+    <string name="release">Release</string>
+    <string name="overview_description">Overview Description</string>
+    <string name="overview">Overview</string>
+    <string name="genre">Genre</string>
+    <string name="image_background">image background</string>
+    <string name="image_background_detail">image background detail</string>
+</resources>
