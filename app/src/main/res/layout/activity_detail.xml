@@ -6,10 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".view.DetailActivity">
 
+    <ProgressBar
+        android:id="@+id/detail_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.ProgressBar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/img_bg_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scaleType="fitXY"
         android:contentDescription="@string/image_background_detail" />
 
     <ImageView
@@ -83,10 +94,10 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/releasedate_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/overview"
+        android:text="@string/release_date"
         android:textColor="@color/teal_200"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -94,21 +105,50 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/img_poster_detail"
         app:layout_constraintTop_toBottomOf="@+id/img_poster_detail"
-        app:layout_constraintVertical_bias="0.10" />
+        app:layout_constraintVertical_bias="0.10"/>
+
+    <TextView
+        android:id="@+id/tv_release_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/release_date_description"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/releasedate_textView"
+        app:layout_constraintTop_toBottomOf="@+id/releasedate_textView"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/overview_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/overview"
+        android:textColor="@color/teal_200"
+        android:textSize="18sp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_release_date"
+        app:layout_constraintTop_toBottomOf="@+id/tv_release_date"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tv_overview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="42dp"
         android:maxLines="15"
         android:text="@string/overview_description"
         android:textColor="@color/white"
         android:textSize="16sp"
-        android:layout_marginEnd="42dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/overview_textView"
+        app:layout_constraintTop_toBottomOf="@+id/overview_textView"
         app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

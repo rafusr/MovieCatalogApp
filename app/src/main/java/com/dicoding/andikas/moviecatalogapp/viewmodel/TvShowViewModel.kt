@@ -1,10 +1,12 @@
 package com.dicoding.andikas.moviecatalogapp.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.dicoding.andikas.moviecatalogapp.utils.DataDummy
+import com.dicoding.andikas.moviecatalogapp.data.MovieRepository
+import com.dicoding.andikas.moviecatalogapp.model.tvshow.TvShow
 
-class TvShowViewModel : ViewModel() {
+class TvShowViewModel(private val movieRepository: MovieRepository) : ViewModel() {
 
-    fun getTvShows() = DataDummy.generateDummyTVShows()
+    fun getTvShow(): LiveData<List<TvShow>> = movieRepository.getTvShow()
 
 }

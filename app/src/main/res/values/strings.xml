@@ -9,6 +9,8 @@
     <string name="overview_description">Overview Description</string>
     <string name="overview">Overview</string>
     <string name="genre">Genre</string>
-    <string name="image_background">image background</string>
-    <string name="image_background_detail">image background detail</string>
+    <string name="image_background">Image Background</string>
+    <string name="image_background_detail">Image Background Detail</string>
+    <string name="release_date">Release Date</string>
+    <string name="release_date_description">Release Date Description</string>
 </resources>

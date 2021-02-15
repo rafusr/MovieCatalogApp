@@ -6,14 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.dicoding.andikas.moviecatalogapp.adapter.MovieAdapter
-import com.dicoding.andikas.moviecatalogapp.databinding.FragmentTvShowBinding
-import com.dicoding.andikas.moviecatalogapp.model.DataEntity
 import com.dicoding.andikas.moviecatalogapp.view.DetailActivity
 import com.dicoding.andikas.moviecatalogapp.viewmodel.TvShowViewModel
+import com.dicoding.andikas.moviecatalogapp.viewmodel.ViewModelFactory
+import com.dicoding.andikas.moviecatalogapp.R
+import com.dicoding.andikas.moviecatalogapp.adapter.TvShowAdapter
+import com.dicoding.andikas.moviecatalogapp.model.tvshow.TvShow
+import kotlinx.android.synthetic.main.fragment_tv_show.*
 
 class TvShowFragment : Fragment() {
 
@@ -21,40 +22,60 @@ class TvShowFragment : Fragment() {
         const val TVSHOW_TYPE = "tvshow_type"
     }
 
-    private var movieAdapter = MovieAdapter()
-    private lateinit var fragmentTvShowBinding: FragmentTvShowBinding
+    private lateinit var tvShowAdapter: TvShowAdapter
     private lateinit var tvShowViewModel: TvShowViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        fragmentTvShowBinding = FragmentTvShowBinding.inflate(inflater, container, false)
-        return fragmentTvShowBinding.root
+        return inflater.inflate(R.layout.fragment_tv_show, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tvShowViewModel = ViewModelProvider(activity!!, ViewModelProvider.NewInstanceFactory()).get(TvShowViewModel::class.java)
+        progressBar(true)
 
-        movieAdapter.setData(tvShowViewModel.getTvShows())
+        tvShowViewModel = activity?.let { ViewModelProvider(it, ViewModelFactory.getInstance()).get(TvShowViewModel::class.java) }!!
+        tvShowViewModel.getTvShow().observe(this, {
+            progressBar(false)
+            recyclerViewConfig(it)
+        })
 
-        fragmentTvShowBinding.rvTvshow.apply {
+        savedInstanceState?.putBundle("tv_show_state", savedInstanceState)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        savedInstanceState?.getBundle("tv_show_state")
+    }
+
+    private fun recyclerViewConfig(listTvShow: List<TvShow>) {
+        rv_tvshow.apply {
             setHasFixedSize(true)
-            layoutManager = GridLayoutManager(context, 2)
-            adapter = movieAdapter
+            layoutManager = GridLayoutManager(activity, 2)
+            tvShowAdapter = TvShowAdapter(listTvShow)
+            adapter = tvShowAdapter
         }
 
-        movieAdapter.setOnViewClickListener(object : MovieAdapter.ViewClickListener{
-            override fun onClick(dataEntity: DataEntity) {
-                Toast.makeText(context, dataEntity.title, Toast.LENGTH_SHORT).show()
+        tvShowAdapter.setOnViewClickListener(object : TvShowAdapter.TvShowViewClickListener{
+            override fun onClick(tvShow: TvShow) {
                 val intent = Intent(activity, DetailActivity::class.java)
-                        .putExtra(DetailActivity.EXTRA_TITLE, dataEntity.title)
-                        .putExtra(DetailActivity.EXTRA_ID, dataEntity.dataId)
+                        .putExtra(DetailActivity.EXTRA_TITLE, tvShow.original_name)
+                        .putExtra(DetailActivity.EXTRA_ID, tvShow.id.toString())
                         .putExtra(DetailActivity.EXTRA_TYPE, TVSHOW_TYPE)
+
                 startActivity(intent)
             }
 
         })
+    }
+
+    private fun progressBar(state: Boolean) {
+        if (state) {
+            tvshow_progressbar.visibility = View.VISIBLE
+        } else {
+            tvshow_progressbar.visibility = View.GONE
+        }
     }
 }
