@@ -6,8 +6,8 @@ import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.dicoding.andikas.moviecatalogapp.view.fragment.MovieFragment
 import com.dicoding.andikas.moviecatalogapp.R
+import com.dicoding.andikas.moviecatalogapp.view.fragment.MovieFragment
 import com.dicoding.andikas.moviecatalogapp.view.fragment.TvShowFragment
 
 class SectionPagerAdapter(private val context: Context, fragmentManager: FragmentManager):

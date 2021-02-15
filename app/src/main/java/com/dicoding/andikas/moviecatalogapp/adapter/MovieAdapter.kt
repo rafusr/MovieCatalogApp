@@ -5,22 +5,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.dicoding.andikas.moviecatalogapp.model.DataEntity
+import com.dicoding.andikas.moviecatalogapp.model.movie.Movie
+import com.dicoding.andikas.moviecatalogapp.adapter.MovieAdapter.MovieViewHolder
 import com.dicoding.andikas.moviecatalogapp.R
 import kotlinx.android.synthetic.main.item_row.view.*
 
-class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+class MovieAdapter(private val movies : List<Movie>) : RecyclerView.Adapter<MovieViewHolder>() {
 
-    private val dataEntity = ArrayList<DataEntity>()
-    private lateinit var viewClickListener: ViewClickListener
+    private lateinit var movieViewClickListener: MovieViewClickListener
 
-    fun setData(dataEntities: List<DataEntity>){
-        this.dataEntity.clear()
-        this.dataEntity.addAll(dataEntities)
-    }
-
-    fun setOnViewClickListener(viewClickListener: ViewClickListener){
-        this.viewClickListener = viewClickListener
+    fun setOnViewClickListener(movieViewClickListener: MovieViewClickListener){
+        this.movieViewClickListener = movieViewClickListener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -29,25 +24,28 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(dataEntity[position])
+        holder.bind(movies[position])
     }
 
-    override fun getItemCount(): Int = dataEntity.size
+    override fun getItemCount(): Int = movies.size
 
     inner class MovieViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        fun bind(dataEntity: DataEntity){
+        fun bind(movie : Movie){
             with(itemView){
-                Glide.with(this).load(dataEntity.imgPoster).into(img_poster)
-                tv_title.text = dataEntity.title
+                Glide.with(this)
+                        .load("https://image.tmdb.org/t/p/w500${movie.poster_path}").error(R.drawable.background_tabs)
+                        .into(img_poster)
+
+                tv_title.text = movie.original_title
             }
             itemView.setOnClickListener{
-                viewClickListener.onClick(dataEntity)
+                movieViewClickListener.onClick(movie)
             }
         }
     }
 
-    interface ViewClickListener{
-        fun onClick(dataEntity: DataEntity)
+    interface MovieViewClickListener{
+        fun onClick(movie: Movie)
     }
 
 }
