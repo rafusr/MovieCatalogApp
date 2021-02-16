@@ -56,6 +56,8 @@ class MainActivityTest {
                 .check(matches(isDisplayed()))
         onView(withId(R.id.tv_genre_detail))
                 .check(matches(isDisplayed()))
+        onView(withId(R.id.tv_release_date))
+                .check(matches(isDisplayed()))
         onView(withId(R.id.tv_overview))
                 .check(matches(isDisplayed()))
     }
@@ -85,6 +87,8 @@ class MainActivityTest {
         onView(withId(R.id.tv_title_detail))
                 .check(matches(isDisplayed()))
         onView(withId(R.id.tv_genre_detail))
+                .check(matches(isDisplayed()))
+        onView(withId(R.id.tv_release_date))
                 .check(matches(isDisplayed()))
         onView(withId(R.id.tv_overview))
                 .check(matches(isDisplayed()))
