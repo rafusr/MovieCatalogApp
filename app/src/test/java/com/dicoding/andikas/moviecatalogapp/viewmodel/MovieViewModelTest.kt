@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.dicoding.andikas.moviecatalogapp.FakeContent
-import com.dicoding.andikas.moviecatalogapp.data.MovieRepository
+import com.dicoding.andikas.moviecatalogapp.data.ContentRepository
 import com.dicoding.andikas.moviecatalogapp.model.movie.Movie
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Test
@@ -26,14 +26,14 @@ class MovieViewModelTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Mock
-    private lateinit var movieRepository: MovieRepository
+    private lateinit var contentRepository: ContentRepository
 
     @Mock
     private lateinit var observer: Observer<List<Movie>>
 
     @Before
     fun setup() {
-        movieViewModel = MovieViewModel(movieRepository)
+        movieViewModel = MovieViewModel(contentRepository)
     }
 
     @Test
@@ -42,9 +42,9 @@ class MovieViewModelTest {
         val movie = MutableLiveData<List<Movie>>()
         movie.value = dummyMovie
 
-        Mockito.`when`(movieRepository.getMovie()).thenReturn(movie)
+        Mockito.`when`(contentRepository.getMovie()).thenReturn(movie)
         val movieEntity = movieViewModel.getMovie().value
-        verify(movieRepository).getMovie()
+        verify(contentRepository).getMovie()
         assertNotNull(movieEntity)
         assertEquals(20, movieEntity?.size)
 

@@ -6,7 +6,7 @@ import com.dicoding.andikas.moviecatalogapp.model.movie.Movie
 import com.dicoding.andikas.moviecatalogapp.model.tvshow.TvShow
 import com.dicoding.andikas.moviecatalogapp.remote.RemoteDataSource
 
-class MovieRepository private constructor(private val remoteDataSource: RemoteDataSource): MovieDataSource {
+class ContentRepository private constructor(private val remoteDataSource: RemoteDataSource): ContentDataSource {
 
     private val listMovies = MutableLiveData<List<Movie>>()
     private val movies = MutableLiveData<Movie>()
@@ -15,11 +15,11 @@ class MovieRepository private constructor(private val remoteDataSource: RemoteDa
 
     companion object {
         @Volatile
-        private var instance: MovieRepository? = null
+        private var instance: ContentRepository? = null
 
-        fun getInstance(remoteDataSource: RemoteDataSource): MovieRepository =
+        fun getInstance(remoteDataSource: RemoteDataSource): ContentRepository =
                 instance ?: synchronized(this) {
-                    instance ?: MovieRepository(remoteDataSource)
+                    instance ?: ContentRepository(remoteDataSource)
                 }
     }
 

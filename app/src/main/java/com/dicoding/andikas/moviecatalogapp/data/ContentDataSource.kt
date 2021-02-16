@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.dicoding.andikas.moviecatalogapp.model.movie.Movie
 import com.dicoding.andikas.moviecatalogapp.model.tvshow.TvShow
 
-interface MovieDataSource {
+interface ContentDataSource {
 
     fun getMovie(): LiveData<List<Movie>>
     fun getMovieDetail(movieId: String): LiveData<Movie>

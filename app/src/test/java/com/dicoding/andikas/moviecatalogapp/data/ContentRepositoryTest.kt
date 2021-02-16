@@ -11,12 +11,12 @@ import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito
 
-class MovieRepositoryTest {
+class ContentRepositoryTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private val remoteRepository = Mockito.mock(RemoteDataSource::class.java)
-    private val movieRepository = FakeMovieRepository(remoteRepository)
+    private val movieRepository = FakeContentRepository(remoteRepository)
 
     private var movies = FakeContent.generateDummyMovies()
     private val movieId = movies[0].id.toString()

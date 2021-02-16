@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.dicoding.andikas.moviecatalogapp.FakeContent
-import com.dicoding.andikas.moviecatalogapp.data.MovieRepository
+import com.dicoding.andikas.moviecatalogapp.data.ContentRepository
 import com.dicoding.andikas.moviecatalogapp.model.tvshow.TvShow
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Test
@@ -26,14 +26,14 @@ class TvShowViewModelTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Mock
-    private lateinit var movieRepository: MovieRepository
+    private lateinit var contentRepository: ContentRepository
 
     @Mock
     private lateinit var observer: Observer<List<TvShow>>
 
     @Before
     fun setup() {
-        tvShowViewModel = TvShowViewModel(movieRepository)
+        tvShowViewModel = TvShowViewModel(contentRepository)
     }
 
     @Test
@@ -42,13 +42,13 @@ class TvShowViewModelTest {
         val tvShow = MutableLiveData<List<TvShow>>()
         tvShow.value = dummyTvShow
 
-        Mockito.`when`(movieRepository.getTvShow()).thenReturn(tvShow)
+        Mockito.`when`(contentRepository.getTvShow()).thenReturn(tvShow)
         val tvShowEntity = tvShowViewModel.getTvShow().value
-        verify(movieRepository).getTvShow()
+        verify(contentRepository).getTvShow()
         assertNotNull(tvShowEntity)
         assertEquals(20, tvShowEntity?.size)
 
-        movieRepository.getTvShow().observeForever(observer)
+        contentRepository.getTvShow().observeForever(observer)
         verify(observer).onChanged(dummyTvShow)
     }
 }

@@ -6,7 +6,7 @@ import com.dicoding.andikas.moviecatalogapp.model.movie.Movie
 import com.dicoding.andikas.moviecatalogapp.model.tvshow.TvShow
 import com.dicoding.andikas.moviecatalogapp.remote.RemoteDataSource
 
-class FakeMovieRepository(private val remoteDataSource: RemoteDataSource): MovieDataSource {
+class FakeContentRepository(private val remoteDataSource: RemoteDataSource): ContentDataSource {
 
     private val listMovies = MutableLiveData<List<Movie>>()
     private val movies = MutableLiveData<Movie>()
