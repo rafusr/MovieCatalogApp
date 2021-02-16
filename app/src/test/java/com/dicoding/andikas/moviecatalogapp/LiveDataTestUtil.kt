@@ -1,4 +1,4 @@
-package com.dicoding.andikas.moviecatalog
+package com.dicoding.andikas.moviecatalogapp
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer

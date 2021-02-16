@@ -1,7 +1,7 @@
 package com.dicoding.andikas.moviecatalogapp.data
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.dicoding.andikas.moviecatalog.LiveDataTestUtil
+import com.dicoding.andikas.moviecatalogapp.LiveDataTestUtil
 import com.dicoding.andikas.moviecatalogapp.FakeContent
 import com.dicoding.andikas.moviecatalogapp.remote.RemoteDataSource
 import com.nhaarman.mockitokotlin2.any
