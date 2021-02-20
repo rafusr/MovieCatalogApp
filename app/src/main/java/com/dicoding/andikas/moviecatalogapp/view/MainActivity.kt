@@ -2,6 +2,8 @@ package com.dicoding.andikas.moviecatalogapp.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.graphics.drawable.toDrawable
+import com.dicoding.andikas.moviecatalogapp.R
 import com.dicoding.andikas.moviecatalogapp.adapter.SectionPagerAdapter
 import com.dicoding.andikas.moviecatalogapp.databinding.ActivityMainBinding
 

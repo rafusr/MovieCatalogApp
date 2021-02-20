@@ -2,6 +2,7 @@ package com.dicoding.andikas.moviecatalogapp.remote
 
 import android.os.Handler
 import android.util.Log
+import com.dicoding.andikas.moviecatalogapp.BuildConfig
 import com.dicoding.andikas.moviecatalogapp.utils.EspressoIdlingResource
 import com.dicoding.andikas.moviecatalogapp.model.movie.ListMovie
 import com.dicoding.andikas.moviecatalogapp.model.movie.Movie
@@ -17,7 +18,7 @@ class RemoteDataSource private constructor(private val retroClient: RetroClient)
     private val handler = Handler()
 
     companion object {
-        private const val apiKey = "99051aca078dc533a46c856e4e555ddc"
+        private const val apiKey = BuildConfig.API_KEY
         private const val SERVICE_LATENCY_IN_MILLIS: Long = 2000
 
         @Volatile

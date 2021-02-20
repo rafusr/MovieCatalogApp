@@ -55,26 +55,38 @@ class DetailActivity : AppCompatActivity() {
         val backdropPath = "https://image.tmdb.org/t/p/w500" + movie?.backdrop_path.toString()
         val posterPath = "https://image.tmdb.org/t/p/w500" + movie?.poster_path.toString()
 
-        Glide.with(this).load(posterPath).into(img_bg_detail)
-        Glide.with(this).load(posterPath).into(img_poster_detail)
-        Glide.with(this).load(backdropPath).into(img_bg_movies)
+        Glide.with(this)
+                .load(posterPath).error(R.drawable.ic_baseline_broken_image_24).placeholder(R.drawable.ic_baseline_sync_24)
+                .into(img_bg_detail)
+        Glide.with(this)
+                .load(posterPath).error(R.drawable.ic_baseline_broken_image_24).placeholder(R.drawable.ic_baseline_sync_24)
+                .into(img_poster_detail)
+        Glide.with(this)
+                .load(backdropPath).error(R.drawable.ic_baseline_broken_image_24).placeholder(R.drawable.ic_baseline_sync_24)
+                .into(img_bg_movies)
         tv_title_detail.text = movie?.original_title
-        tv_genre_detail.text = movie?.genres?.get(0)!!.name
-        tv_release_date.text = movie.release_date
-        tv_overview.text = movie.overview
+        tv_genre_detail.text = movie?.genres?.get(0)?.name
+        tv_release_date.text = movie?.release_date
+        tv_overview.text = movie?.overview
     }
 
     private fun setTvShowDetail(tvShow: TvShow?) {
         val backdropPath = "https://image.tmdb.org/t/p/w500" + tvShow?.backdrop_path.toString()
         val posterPath = "https://image.tmdb.org/t/p/w500" + tvShow?.poster_path.toString()
 
-        Glide.with(this).load(posterPath).into(img_bg_detail)
-        Glide.with(this).load(posterPath).into(img_poster_detail)
-        Glide.with(this).load(backdropPath).into(img_bg_movies)
+        Glide.with(this)
+                .load(posterPath).error(R.drawable.ic_baseline_broken_image_24).placeholder(R.drawable.ic_baseline_sync_24)
+                .into(img_bg_detail)
+        Glide.with(this)
+                .load(posterPath).error(R.drawable.ic_baseline_broken_image_24).placeholder(R.drawable.ic_baseline_sync_24)
+                .into(img_poster_detail)
+        Glide.with(this)
+                .load(backdropPath).error(R.drawable.ic_baseline_broken_image_24).placeholder(R.drawable.ic_baseline_sync_24)
+                .into(img_bg_movies)
         tv_title_detail.text = tvShow?.original_name
-        tv_genre_detail.text = tvShow?.genres?.get(0)!!.name
-        tv_release_date.text = tvShow.first_air_date
-        tv_overview.text = tvShow.overview
+        tv_genre_detail.text = tvShow?.genres?.get(0)?.name
+        tv_release_date.text = tvShow?.first_air_date
+        tv_overview.text = tvShow?.overview
     }
 
     private fun progressBar(state: Boolean) {

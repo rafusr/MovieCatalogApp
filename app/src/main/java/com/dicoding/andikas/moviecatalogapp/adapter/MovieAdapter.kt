@@ -12,6 +12,10 @@ import kotlinx.android.synthetic.main.item_row.view.*
 
 class MovieAdapter(private val movies : List<Movie>) : RecyclerView.Adapter<MovieViewHolder>() {
 
+    companion object {
+        private const val POSTER_URL = "https://image.tmdb.org/t/p/w500"
+    }
+
     private lateinit var movieViewClickListener: MovieViewClickListener
 
     fun setOnViewClickListener(movieViewClickListener: MovieViewClickListener){
@@ -33,7 +37,7 @@ class MovieAdapter(private val movies : List<Movie>) : RecyclerView.Adapter<Movi
         fun bind(movie : Movie){
             with(itemView){
                 Glide.with(this)
-                        .load("https://image.tmdb.org/t/p/w500${movie.poster_path}").error(R.drawable.background_tabs)
+                        .load(POSTER_URL + movie.poster_path).error(R.drawable.ic_baseline_broken_image_24).placeholder(R.drawable.ic_baseline_sync_24)
                         .into(img_poster)
 
                 tv_title.text = movie.original_title

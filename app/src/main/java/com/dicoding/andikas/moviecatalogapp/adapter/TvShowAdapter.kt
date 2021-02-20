@@ -12,6 +12,10 @@ import kotlinx.android.synthetic.main.item_row.view.*
 
 class TvShowAdapter(private val tvShows: List<TvShow>) : RecyclerView.Adapter<TvShowViewHolder>() {
 
+    companion object {
+        private const val POSTER_URL = "https://image.tmdb.org/t/p/w500"
+    }
+
     private lateinit var tvShowViewClickListener: TvShowViewClickListener
 
     fun setOnViewClickListener(tvShowViewClickListener: TvShowViewClickListener){
@@ -33,7 +37,7 @@ class TvShowAdapter(private val tvShows: List<TvShow>) : RecyclerView.Adapter<Tv
         fun bind(tvShow: TvShow){
             with(itemView){
                 Glide.with(this)
-                        .load("https://image.tmdb.org/t/p/w500${tvShow.poster_path}").error(R.drawable.background_tabs)
+                        .load(POSTER_URL + tvShow.poster_path).error(R.drawable.ic_baseline_broken_image_24).placeholder(R.drawable.ic_baseline_sync_24)
                         .into(img_poster)
 
                 tv_title.text = tvShow.original_name
