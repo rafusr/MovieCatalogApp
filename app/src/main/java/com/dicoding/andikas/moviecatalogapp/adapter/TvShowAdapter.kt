@@ -8,9 +8,10 @@ import com.bumptech.glide.Glide
 import com.dicoding.andikas.moviecatalogapp.model.tvshow.TvShow
 import com.dicoding.andikas.moviecatalogapp.adapter.TvShowAdapter.TvShowViewHolder
 import com.dicoding.andikas.moviecatalogapp.R
+import com.dicoding.andikas.moviecatalogapp.vo.Resource
 import kotlinx.android.synthetic.main.item_row.view.*
 
-class TvShowAdapter(private val tvShows: List<TvShow>) : RecyclerView.Adapter<TvShowViewHolder>() {
+class TvShowAdapter(private val tvShows: Resource<List<TvShow>>) : RecyclerView.Adapter<TvShowViewHolder>() {
 
     companion object {
         private const val POSTER_URL = "https://image.tmdb.org/t/p/w500"
@@ -28,10 +29,10 @@ class TvShowAdapter(private val tvShows: List<TvShow>) : RecyclerView.Adapter<Tv
     }
 
     override fun onBindViewHolder(holder: TvShowViewHolder, position: Int) {
-        holder.bind(tvShows[position])
+        tvShows.data?.get(position)?.let { holder.bind(it) }
     }
 
-    override fun getItemCount(): Int = tvShows.size
+    override fun getItemCount(): Int = tvShows.data?.size!!
 
     inner class TvShowViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(tvShow: TvShow){

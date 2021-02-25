@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.dicoding.andikas.moviecatalogapp.data.source.ContentRepository
 import com.dicoding.andikas.moviecatalogapp.model.tvshow.TvShow
-import com.dicoding.andikas.moviecatalogapp.vo.Resource
 
-class TvShowViewModel(private val contentRepository: ContentRepository) : ViewModel() {
+class FavoriteTvShowViewModel(private val contentRepository: ContentRepository) : ViewModel() {
 
-    fun getTvShow(): LiveData<Resource<List<TvShow>>> = contentRepository.getTvShow()
+    fun getFavoriteTvShow(): LiveData<List<TvShow>> = contentRepository.getFavoritedTvShow()
+
 }

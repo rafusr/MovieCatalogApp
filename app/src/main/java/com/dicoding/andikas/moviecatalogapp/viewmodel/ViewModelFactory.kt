@@ -1,8 +1,9 @@
 package com.dicoding.andikas.moviecatalogapp.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.dicoding.andikas.moviecatalogapp.data.ContentRepository
+import com.dicoding.andikas.moviecatalogapp.data.source.ContentRepository
 import com.dicoding.andikas.moviecatalogapp.di.Injection
 
 class ViewModelFactory(private val contentRepository: ContentRepository): ViewModelProvider.NewInstanceFactory() {
@@ -11,9 +12,9 @@ class ViewModelFactory(private val contentRepository: ContentRepository): ViewMo
         @Volatile
         private var instance: ViewModelFactory? = null
 
-        fun getInstance(): ViewModelFactory =
+        fun getInstance(context: Context): ViewModelFactory =
                 instance ?: synchronized(this) {
-                    instance ?: ViewModelFactory(Injection.movieRepository())
+                    instance ?: ViewModelFactory(Injection.movieRepository(context))
                 }
     }
 
@@ -23,6 +24,8 @@ class ViewModelFactory(private val contentRepository: ContentRepository): ViewMo
             modelClass.isAssignableFrom(MovieViewModel::class.java) -> MovieViewModel(contentRepository) as T
             modelClass.isAssignableFrom(TvShowViewModel::class.java) -> TvShowViewModel(contentRepository) as T
             modelClass.isAssignableFrom(DetailViewModel::class.java) -> DetailViewModel(contentRepository) as T
+            modelClass.isAssignableFrom(FavoriteMovieViewModel::class.java) -> FavoriteMovieViewModel(contentRepository) as T
+            modelClass.isAssignableFrom(FavoriteTvShowViewModel::class.java) -> FavoriteTvShowViewModel(contentRepository) as T
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }
     }

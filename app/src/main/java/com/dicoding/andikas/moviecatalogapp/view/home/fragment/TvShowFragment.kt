@@ -1,4 +1,4 @@
-package com.dicoding.andikas.moviecatalogapp.view.fragment
+package com.dicoding.andikas.moviecatalogapp.view.home.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,20 +6,24 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.dicoding.andikas.moviecatalogapp.view.DetailActivity
+import com.dicoding.andikas.moviecatalogapp.view.detail.DetailActivity
 import com.dicoding.andikas.moviecatalogapp.viewmodel.TvShowViewModel
 import com.dicoding.andikas.moviecatalogapp.viewmodel.ViewModelFactory
 import com.dicoding.andikas.moviecatalogapp.R
 import com.dicoding.andikas.moviecatalogapp.adapter.TvShowAdapter
 import com.dicoding.andikas.moviecatalogapp.model.tvshow.TvShow
+import com.dicoding.andikas.moviecatalogapp.vo.Resource
+import com.dicoding.andikas.moviecatalogapp.vo.Status
 import kotlinx.android.synthetic.main.fragment_tv_show.*
 
 class TvShowFragment : Fragment() {
 
     companion object {
         const val TVSHOW_TYPE = "tvshow_type"
+        const val EXTRA_MAIN_ACTIVITY = "extra_main_activity"
     }
 
     private lateinit var tvShowAdapter: TvShowAdapter
@@ -34,23 +38,25 @@ class TvShowFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        progressBar(true)
-
-        tvShowViewModel = activity?.let { ViewModelProvider(it, ViewModelFactory.getInstance()).get(TvShowViewModel::class.java) }!!
+        tvShowViewModel = activity?.let { ViewModelProvider(it, ViewModelFactory.getInstance(activity!!)).get(TvShowViewModel::class.java) }!!
         tvShowViewModel.getTvShow().observe(this, {
-            progressBar(false)
-            recyclerViewConfig(it)
+            if (it != null) {
+                when (it.status) {
+                    Status.LOADING -> progressBar(true)
+                    Status.SUCCESS -> {
+                        progressBar(false)
+                        recyclerViewConfig(it)
+                    }
+                    Status.ERROR -> {
+                        progressBar(false)
+                        Toast.makeText(context, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         })
-
-        savedInstanceState?.putBundle("tv_show_state", savedInstanceState)
     }
 
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-        savedInstanceState?.getBundle("tv_show_state")
-    }
-
-    private fun recyclerViewConfig(listTvShow: List<TvShow>) {
+    private fun recyclerViewConfig(listTvShow: Resource<List<TvShow>>) {
         rv_tvshow.apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(activity, 2)
@@ -64,6 +70,7 @@ class TvShowFragment : Fragment() {
                         .putExtra(DetailActivity.EXTRA_TITLE, tvShow.original_name)
                         .putExtra(DetailActivity.EXTRA_ID, tvShow.id.toString())
                         .putExtra(DetailActivity.EXTRA_TYPE, TVSHOW_TYPE)
+                        .putExtra(DetailActivity.EXTRA_ACTIVITY, EXTRA_MAIN_ACTIVITY)
 
                 startActivity(intent)
             }

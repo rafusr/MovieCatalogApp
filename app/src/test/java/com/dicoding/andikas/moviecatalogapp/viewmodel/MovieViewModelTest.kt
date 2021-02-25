@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.dicoding.andikas.moviecatalogapp.FakeContent
-import com.dicoding.andikas.moviecatalogapp.data.ContentRepository
+import com.dicoding.andikas.moviecatalogapp.data.source.ContentRepository
 import com.dicoding.andikas.moviecatalogapp.model.movie.Movie
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Test

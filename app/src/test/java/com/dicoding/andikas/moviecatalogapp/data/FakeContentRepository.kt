@@ -2,9 +2,10 @@ package com.dicoding.andikas.moviecatalogapp.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.dicoding.andikas.moviecatalogapp.data.source.ContentDataSource
 import com.dicoding.andikas.moviecatalogapp.model.movie.Movie
 import com.dicoding.andikas.moviecatalogapp.model.tvshow.TvShow
-import com.dicoding.andikas.moviecatalogapp.remote.RemoteDataSource
+import com.dicoding.andikas.moviecatalogapp.data.source.remote.RemoteDataSource
 
 class FakeContentRepository(private val remoteDataSource: RemoteDataSource): ContentDataSource {
 

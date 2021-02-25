@@ -7,11 +7,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.dicoding.andikas.moviecatalogapp.R
-import com.dicoding.andikas.moviecatalogapp.view.home.fragment.MovieFragment
-import com.dicoding.andikas.moviecatalogapp.view.home.fragment.TvShowFragment
+import com.dicoding.andikas.moviecatalogapp.view.favorite.fragment.FavoriteMovieFragment
+import com.dicoding.andikas.moviecatalogapp.view.favorite.fragment.FavoriteTvShowFragment
 
-class SectionPagerAdapter(private val context: Context, fragmentManager: FragmentManager):
-        FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class FavoriteSectionPagerAdapter(private val context: Context, fragmentManager: FragmentManager) :
+    FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     @StringRes
     private val tabTitles = intArrayOf(R.string.movie, R.string.tvshow)
@@ -25,12 +25,10 @@ class SectionPagerAdapter(private val context: Context, fragmentManager: Fragmen
 
     override fun getItem(position: Int): Fragment {
         var fragment: Fragment? = null
-        when (position){
-            0 -> fragment = MovieFragment()
-            1 -> fragment = TvShowFragment()
+        when (position) {
+            0 -> fragment = FavoriteMovieFragment()
+            1 -> fragment = FavoriteTvShowFragment()
         }
         return fragment as Fragment
     }
-
-
 }

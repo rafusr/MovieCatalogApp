@@ -5,38 +5,36 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.dicoding.andikas.moviecatalogapp.model.movie.Movie
-import com.dicoding.andikas.moviecatalogapp.adapter.MovieAdapter.MovieViewHolder
 import com.dicoding.andikas.moviecatalogapp.R
+import com.dicoding.andikas.moviecatalogapp.adapter.FavoriteMovieAdapter.*
+import com.dicoding.andikas.moviecatalogapp.model.movie.Movie
 import com.dicoding.andikas.moviecatalogapp.vo.Resource
 import kotlinx.android.synthetic.main.item_row.view.*
 
-class MovieAdapter(private val movies : Resource<List<Movie>>) : RecyclerView.Adapter<MovieViewHolder>() {
+class FavoriteMovieAdapter(private val movies : List<Movie>) : RecyclerView.Adapter<FavoriteMovieViewHolder>() {
 
     companion object {
         private const val POSTER_URL = "https://image.tmdb.org/t/p/w500"
     }
 
-    private lateinit var movieViewClickListener: MovieViewClickListener
+    private lateinit var favoriteMovieViewClickListener: FavoriteMovieViewClickListener
 
-    fun setOnViewClickListener(movieViewClickListener: MovieViewClickListener){
-        this.movieViewClickListener = movieViewClickListener
+    fun setOnViewClickListener(favoriteMovieViewClickListener: FavoriteMovieViewClickListener){
+        this.favoriteMovieViewClickListener = favoriteMovieViewClickListener
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteMovieViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_row, parent, false)
-        return MovieViewHolder(view)
+        return FavoriteMovieViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        movies.data?.get(position)?.let { holder.bind(it) }
+    override fun onBindViewHolder(holder: FavoriteMovieViewHolder, position: Int) {
+        holder.bind(movies[position])
     }
 
-    override fun getItemCount(): Int {
-        return movies.data?.size!!
-    }
+    override fun getItemCount(): Int = movies.size
 
-    inner class MovieViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    inner class FavoriteMovieViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(movie : Movie){
             with(itemView){
                 Glide.with(this)
@@ -46,13 +44,12 @@ class MovieAdapter(private val movies : Resource<List<Movie>>) : RecyclerView.Ad
                 tv_title.text = movie.original_title
             }
             itemView.setOnClickListener{
-                movieViewClickListener.onClick(movie)
+                favoriteMovieViewClickListener.onClick(movie)
             }
         }
     }
 
-    interface MovieViewClickListener{
+    interface FavoriteMovieViewClickListener{
         fun onClick(movie: Movie)
     }
-
 }

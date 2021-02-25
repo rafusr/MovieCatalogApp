@@ -12,6 +12,7 @@ import com.dicoding.andikas.moviecatalogapp.R
 import com.dicoding.andikas.moviecatalogapp.model.movie.Movie
 import com.dicoding.andikas.moviecatalogapp.model.tvshow.TvShow
 import com.dicoding.andikas.moviecatalogapp.utils.EspressoIdlingResource
+import com.dicoding.andikas.moviecatalogapp.view.home.MainActivity
 import org.junit.After
 import org.junit.Before
 import org.junit.Test

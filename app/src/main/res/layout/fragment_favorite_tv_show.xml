@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.home.fragment.TvShowFragment">
+    tools:context=".view.favorite.fragment.FavoriteTvShowFragment">
 
     <ProgressBar
-        android:id="@+id/tvshow_progressbar"
+        android:id="@+id/favorite_tvshow_progressbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/Widget.AppCompat.ProgressBar"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_tvshow"
+        android:id="@+id/rv_favorite_tvshow"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/item_row"/>

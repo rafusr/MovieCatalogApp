@@ -3,7 +3,7 @@ package com.dicoding.andikas.moviecatalogapp.data
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.dicoding.andikas.moviecatalogapp.LiveDataTestUtil
 import com.dicoding.andikas.moviecatalogapp.FakeContent
-import com.dicoding.andikas.moviecatalogapp.remote.RemoteDataSource
+import com.dicoding.andikas.moviecatalogapp.data.source.remote.RemoteDataSource
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.eq
 import org.junit.Assert.*

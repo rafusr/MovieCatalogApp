@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.DetailActivity">
+    tools:context=".view.detail.DetailActivity">
 
     <ProgressBar
         android:id="@+id/detail_progressbar"
@@ -150,5 +150,20 @@
         app:layout_constraintStart_toStartOf="@+id/overview_textView"
         app:layout_constraintTop_toBottomOf="@+id/overview_textView"
         app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/btn_favorite"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_margin="8dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_baseline_favorite_border_24"
+        app:layout_constraintBottom_toBottomOf="@+id/img_bg_movies"
+        app:layout_constraintEnd_toEndOf="@+id/img_bg_movies"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/img_bg_movies"
+        app:layout_constraintTop_toTopOf="@+id/img_bg_detail"
+        app:layout_constraintVertical_bias="1.0"
+        android:contentDescription="@string/favorites" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
