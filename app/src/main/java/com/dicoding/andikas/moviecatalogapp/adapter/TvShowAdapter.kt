@@ -3,18 +3,30 @@ package com.dicoding.andikas.moviecatalogapp.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dicoding.andikas.moviecatalogapp.model.tvshow.TvShow
 import com.dicoding.andikas.moviecatalogapp.adapter.TvShowAdapter.TvShowViewHolder
 import com.dicoding.andikas.moviecatalogapp.R
-import com.dicoding.andikas.moviecatalogapp.vo.Resource
 import kotlinx.android.synthetic.main.item_row.view.*
 
-class TvShowAdapter(private val tvShows: Resource<List<TvShow>>) : RecyclerView.Adapter<TvShowViewHolder>() {
+class TvShowAdapter : PagedListAdapter<TvShow, TvShowViewHolder>(DIFF_CALLBACK) {
 
     companion object {
         private const val POSTER_URL = "https://image.tmdb.org/t/p/w500"
+
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TvShow>() {
+            override fun areItemsTheSame(oldItem: TvShow, newItem: TvShow): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: TvShow, newItem: TvShow): Boolean {
+                return oldItem == newItem
+            }
+
+        }
     }
 
     private lateinit var tvShowViewClickListener: TvShowViewClickListener
@@ -29,10 +41,11 @@ class TvShowAdapter(private val tvShows: Resource<List<TvShow>>) : RecyclerView.
     }
 
     override fun onBindViewHolder(holder: TvShowViewHolder, position: Int) {
-        tvShows.data?.get(position)?.let { holder.bind(it) }
+        val tvShow = getItem(position)
+        if (tvShow != null) {
+            holder.bind(tvShow)
+        }
     }
-
-    override fun getItemCount(): Int = tvShows.data?.size!!
 
     inner class TvShowViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(tvShow: TvShow){

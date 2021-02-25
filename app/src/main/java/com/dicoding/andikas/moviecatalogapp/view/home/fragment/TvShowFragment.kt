@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.GridLayoutManager
 import com.dicoding.andikas.moviecatalogapp.view.detail.DetailActivity
 import com.dicoding.andikas.moviecatalogapp.viewmodel.TvShowViewModel
@@ -15,7 +16,6 @@ import com.dicoding.andikas.moviecatalogapp.viewmodel.ViewModelFactory
 import com.dicoding.andikas.moviecatalogapp.R
 import com.dicoding.andikas.moviecatalogapp.adapter.TvShowAdapter
 import com.dicoding.andikas.moviecatalogapp.model.tvshow.TvShow
-import com.dicoding.andikas.moviecatalogapp.vo.Resource
 import com.dicoding.andikas.moviecatalogapp.vo.Status
 import kotlinx.android.synthetic.main.fragment_tv_show.*
 
@@ -45,7 +45,7 @@ class TvShowFragment : Fragment() {
                     Status.LOADING -> progressBar(true)
                     Status.SUCCESS -> {
                         progressBar(false)
-                        recyclerViewConfig(it)
+                        recyclerViewConfig(it.data)
                     }
                     Status.ERROR -> {
                         progressBar(false)
@@ -56,11 +56,12 @@ class TvShowFragment : Fragment() {
         })
     }
 
-    private fun recyclerViewConfig(listTvShow: Resource<List<TvShow>>) {
+    private fun recyclerViewConfig(listTvShow: PagedList<TvShow>?) {
         rv_tvshow.apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(activity, 2)
-            tvShowAdapter = TvShowAdapter(listTvShow)
+            tvShowAdapter = TvShowAdapter()
+            tvShowAdapter.submitList(listTvShow)
             adapter = tvShowAdapter
         }
 

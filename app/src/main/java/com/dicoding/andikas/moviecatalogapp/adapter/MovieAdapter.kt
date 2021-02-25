@@ -3,18 +3,30 @@ package com.dicoding.andikas.moviecatalogapp.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dicoding.andikas.moviecatalogapp.model.movie.Movie
 import com.dicoding.andikas.moviecatalogapp.adapter.MovieAdapter.MovieViewHolder
 import com.dicoding.andikas.moviecatalogapp.R
-import com.dicoding.andikas.moviecatalogapp.vo.Resource
 import kotlinx.android.synthetic.main.item_row.view.*
 
-class MovieAdapter(private val movies : Resource<List<Movie>>) : RecyclerView.Adapter<MovieViewHolder>() {
+class MovieAdapter : PagedListAdapter<Movie, MovieViewHolder>(DIFF_CALLBACK) {
 
     companion object {
         private const val POSTER_URL = "https://image.tmdb.org/t/p/w500"
+
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Movie>() {
+            override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+                return oldItem == newItem
+            }
+
+        }
     }
 
     private lateinit var movieViewClickListener: MovieViewClickListener
@@ -29,11 +41,10 @@ class MovieAdapter(private val movies : Resource<List<Movie>>) : RecyclerView.Ad
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        movies.data?.get(position)?.let { holder.bind(it) }
-    }
-
-    override fun getItemCount(): Int {
-        return movies.data?.size!!
+        val movie = getItem(position)
+        if (movie != null) {
+            holder.bind(movie)
+        }
     }
 
     inner class MovieViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.GridLayoutManager
 import com.dicoding.andikas.moviecatalogapp.viewmodel.MovieViewModel
 import com.dicoding.andikas.moviecatalogapp.viewmodel.ViewModelFactory
@@ -15,7 +16,6 @@ import com.dicoding.andikas.moviecatalogapp.view.detail.DetailActivity
 import com.dicoding.andikas.moviecatalogapp.R
 import com.dicoding.andikas.moviecatalogapp.adapter.MovieAdapter
 import com.dicoding.andikas.moviecatalogapp.model.movie.Movie
-import com.dicoding.andikas.moviecatalogapp.vo.Resource
 import com.dicoding.andikas.moviecatalogapp.vo.Status
 import kotlinx.android.synthetic.main.fragment_movie.*
 
@@ -45,7 +45,7 @@ class MovieFragment : Fragment() {
                     Status.LOADING -> progressBar(true)
                     Status.SUCCESS -> {
                         progressBar(false)
-                        recyclerViewConfig(it)
+                        recyclerViewConfig(it.data)
                     }
                     Status.ERROR -> {
                         progressBar(false)
@@ -56,11 +56,12 @@ class MovieFragment : Fragment() {
         })
     }
 
-    private fun recyclerViewConfig(listMovie: Resource<List<Movie>>) {
+    private fun recyclerViewConfig(listMovie: PagedList<Movie>?) {
         rv_movie.apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(activity, 2)
-            movieAdapter = MovieAdapter(listMovie)
+            movieAdapter = MovieAdapter()
+            movieAdapter.submitList(listMovie)
             adapter = movieAdapter
         }
 

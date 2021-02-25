@@ -1,6 +1,7 @@
 package com.dicoding.andikas.moviecatalogapp.data.source.local.room
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.*
 import com.dicoding.andikas.moviecatalogapp.model.movie.Movie
 import com.dicoding.andikas.moviecatalogapp.model.tvshow.TvShow
@@ -10,10 +11,10 @@ interface ContentDao {
 
     //Movie
     @Query("SELECT * FROM movieentities")
-    fun getMovie(): LiveData<List<Movie>>
+    fun getMovie(): DataSource.Factory<Int, Movie>
 
     @Query("SELECT * FROM movieentities where favorited = 1")
-    fun getFavoritedMovie(): LiveData<List<Movie>>
+    fun getFavoritedMovie(): DataSource.Factory<Int, Movie>
 
     @Transaction
     @Query("SELECT * FROM movieentities WHERE movieId = :movieId")
@@ -24,14 +25,13 @@ interface ContentDao {
 
     @Update
     fun updateMovie(movie: Movie)
-    //
 
     //TvShow
     @Query("SELECT * FROM tvshowentities")
-    fun getTvShow(): LiveData<List<TvShow>>
+    fun getTvShow(): DataSource.Factory<Int, TvShow>
 
     @Query("SELECT * FROM tvshowentities where favorited = 1")
-    fun getFavoritedTvShow(): LiveData<List<TvShow>>
+    fun getFavoritedTvShow(): DataSource.Factory<Int, TvShow>
 
     @Transaction
     @Query("SELECT * FROM tvshowentities WHERE tvShowId = :tvShowId")
@@ -42,5 +42,4 @@ interface ContentDao {
 
     @Update
     fun updateTvShow(tvShow: TvShow)
-    //
 }

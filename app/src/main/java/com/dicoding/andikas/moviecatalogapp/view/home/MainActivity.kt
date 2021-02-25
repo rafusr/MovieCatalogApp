@@ -12,7 +12,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val sectionPagerAdapter = SectionPagerAdapter(this, supportFragmentManager)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.title = "Movie Catalogue"
 
-        binding.mainViewpager.adapter = sectionPagerAdapter
+        binding.mainViewpager.adapter = SectionPagerAdapter(this, supportFragmentManager)
         binding.mainTab.setupWithViewPager(binding.mainViewpager)
         supportActionBar?.elevation = 0f
 

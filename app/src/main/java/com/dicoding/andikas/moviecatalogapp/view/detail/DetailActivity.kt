@@ -1,23 +1,19 @@
 package com.dicoding.andikas.moviecatalogapp.view.detail
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
-import com.dicoding.andikas.moviecatalogapp.viewmodel.DetailViewModel
-import com.dicoding.andikas.moviecatalogapp.viewmodel.ViewModelFactory
 import com.dicoding.andikas.moviecatalogapp.R
-import com.dicoding.andikas.moviecatalogapp.adapter.SectionPagerAdapter
+import com.dicoding.andikas.moviecatalogapp.databinding.ActivityDetailBinding
 import com.dicoding.andikas.moviecatalogapp.model.movie.Movie
 import com.dicoding.andikas.moviecatalogapp.model.tvshow.TvShow
+import com.dicoding.andikas.moviecatalogapp.viewmodel.DetailViewModel
+import com.dicoding.andikas.moviecatalogapp.viewmodel.ViewModelFactory
 import com.dicoding.andikas.moviecatalogapp.vo.Resource
 import com.dicoding.andikas.moviecatalogapp.vo.Status
-import kotlinx.android.synthetic.main.activity_detail.*
-import kotlinx.android.synthetic.main.activity_favorite.*
-import kotlinx.android.synthetic.main.activity_main.*
 
 class DetailActivity : AppCompatActivity() {
 
@@ -32,12 +28,12 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private lateinit var detailViewModel: DetailViewModel
-    private val mainViewPager = R.id.main_viewpager
-    private val favViewPager = R.id.favorite_viewpager
+    private lateinit var binding: ActivityDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
+        binding = ActivityDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val title = intent.getStringExtra(EXTRA_TITLE)
         supportActionBar?.title = title
@@ -99,19 +95,19 @@ class DetailActivity : AppCompatActivity() {
 
             Glide.with(this)
                     .load(posterPath).error(R.drawable.ic_baseline_broken_image_24).placeholder(R.drawable.ic_baseline_sync_24)
-                    .into(img_bg_detail)
+                    .into(binding.imgBgDetail)
             Glide.with(this)
                     .load(posterPath).error(R.drawable.ic_baseline_broken_image_24).placeholder(R.drawable.ic_baseline_sync_24)
-                    .into(img_poster_detail)
+                    .into(binding.imgPosterDetail)
             Glide.with(this)
                     .load(backdropPath).error(R.drawable.ic_baseline_broken_image_24).placeholder(R.drawable.ic_baseline_sync_24)
-                    .into(img_bg_movies)
-            tv_title_detail.text = movie.original_title
-            tv_genre_detail.text = movie.genres?.get(0)?.name
-            tv_release_date.text = movie.release_date
-            tv_overview.text = movie.overview
+                    .into(binding.imgBgMovies)
+            binding.tvTitleDetail.text = movie.original_title
+            binding.tvGenreDetail.text = movie.genres?.get(0)?.name
+            binding.tvReleaseDate.text = movie.release_date
+            binding.tvOverview.text = movie.overview
 
-            btn_favorite.setOnClickListener {
+            binding.btnFavorite.setOnClickListener {
                 setFavoriteState(!state)
                 detailViewModel.setMovieFavorite()
             }
@@ -129,19 +125,19 @@ class DetailActivity : AppCompatActivity() {
 
             Glide.with(this)
                     .load(posterPath).error(R.drawable.ic_baseline_broken_image_24).placeholder(R.drawable.ic_baseline_sync_24)
-                    .into(img_bg_detail)
+                    .into(binding.imgBgDetail)
             Glide.with(this)
                     .load(posterPath).error(R.drawable.ic_baseline_broken_image_24).placeholder(R.drawable.ic_baseline_sync_24)
-                    .into(img_poster_detail)
+                    .into(binding.imgPosterDetail)
             Glide.with(this)
                     .load(backdropPath).error(R.drawable.ic_baseline_broken_image_24).placeholder(R.drawable.ic_baseline_sync_24)
-                    .into(img_bg_movies)
-            tv_title_detail.text = tvShow.original_name
-            tv_genre_detail.text = tvShow.genres?.get(0)?.name
-            tv_release_date.text = tvShow.first_air_date
-            tv_overview.text = tvShow.overview
+                    .into(binding.imgBgMovies)
+            binding.tvTitleDetail.text = tvShow.original_name
+            binding.tvGenreDetail.text = tvShow.genres?.get(0)?.name
+            binding.tvReleaseDate.text = tvShow.first_air_date
+            binding.tvOverview.text = tvShow.overview
 
-            btn_favorite.setOnClickListener {
+            binding.btnFavorite.setOnClickListener {
                 setFavoriteState(!state)
                 detailViewModel.setTvShowFavorite()
             }
@@ -152,27 +148,17 @@ class DetailActivity : AppCompatActivity() {
 
     private fun setFavoriteState(state: Boolean){
         if (state){
-            btn_favorite.setBackgroundResource(R.drawable.ic_baseline_favorite_24)
+            binding.btnFavorite.setBackgroundResource(R.drawable.ic_baseline_favorite_24)
         } else {
-            btn_favorite.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24)
+            binding.btnFavorite.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24)
         }
     }
 
     private fun progressBar(state: Boolean) {
         if (state) {
-            detail_progressbar.visibility = View.VISIBLE
+            binding.detailProgressbar.visibility = View.VISIBLE
         } else {
-            detail_progressbar.visibility = View.GONE
-        }
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        val dataActivity = intent.getStringExtra(EXTRA_ACTIVITY)
-        if (dataActivity == "extra_main_activity") {
-            main_viewpager.currentItem
-        } else if (dataActivity == "extra_favorite_activity") {
-            favorite_viewpager.currentItem
+            binding.detailProgressbar.visibility = View.GONE
         }
     }
 

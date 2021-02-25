@@ -22,27 +22,17 @@ class DetailViewModel(private val contentRepository: ContentRepository): ViewMod
         this.tvShowId.value = tvShowId
     }
 
-    //Movie
     fun getMovieDetail(movieId: String): LiveData<Resource<Movie>> = contentRepository.getMovieDetail(movieId)
+
+    fun getTvShowDetail(tvShowId: String): LiveData<Resource<TvShow>> = contentRepository.getTvShowDetail(tvShowId)
 
     var movies: LiveData<Resource<Movie>> = Transformations.switchMap(movieId) {mMovieId ->
         contentRepository.getMovieDetail(mMovieId)
     }
 
-    fun setFavoriteMovie(movie: Movie, state: Boolean) = contentRepository.setMovieFavorite(movie, state)
-
-    fun getFavoriteMovie(): LiveData<List<Movie>> = contentRepository.getFavoritedMovie()
-
-    //Tv Show
-    fun getTvShowDetail(tvShowId: String): LiveData<Resource<TvShow>> = contentRepository.getTvShowDetail(tvShowId)
-
     var tvShows: LiveData<Resource<TvShow>> = Transformations.switchMap(tvShowId) {mTvShowId ->
         contentRepository.getTvShowDetail(mTvShowId)
     }
-
-    fun setFavoriteTvShow(tvShow: TvShow, state: Boolean) = contentRepository.setTvShowFavorite(tvShow, state)
-
-    fun getFavoriteTvShow(): LiveData<List<TvShow>> = contentRepository.getFavoritedTvShow()
 
     fun setMovieFavorite() {
         val movieResource = movies.value

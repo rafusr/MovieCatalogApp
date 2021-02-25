@@ -3,17 +3,30 @@ package com.dicoding.andikas.moviecatalogapp.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dicoding.andikas.moviecatalogapp.R
-import com.dicoding.andikas.moviecatalogapp.model.movie.Movie
 import com.dicoding.andikas.moviecatalogapp.model.tvshow.TvShow
 import kotlinx.android.synthetic.main.item_row.view.*
 
-class FavoriteTvShowAdapter(private val tvShows : List<TvShow>) : RecyclerView.Adapter<FavoriteTvShowAdapter.FavoriteTvShowViewHolder>() {
+class FavoriteTvShowAdapter : PagedListAdapter<TvShow, FavoriteTvShowAdapter.FavoriteTvShowViewHolder>(
+    DIFF_CALLBACK) {
 
     companion object {
         private const val POSTER_URL = "https://image.tmdb.org/t/p/w500"
+
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TvShow>() {
+            override fun areItemsTheSame(oldItem: TvShow, newItem: TvShow): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: TvShow, newItem: TvShow): Boolean {
+                return oldItem == newItem
+            }
+
+        }
     }
 
     private lateinit var favoriteTvShowViewClickListener: FavoriteTvShowViewClickListener
@@ -28,10 +41,13 @@ class FavoriteTvShowAdapter(private val tvShows : List<TvShow>) : RecyclerView.A
     }
 
     override fun onBindViewHolder(holder: FavoriteTvShowViewHolder, position: Int) {
-        holder.bind(tvShows[position])
+        val favTvShow = getItem(position)
+        if (favTvShow != null) {
+            holder.bind(favTvShow)
+        }
     }
 
-    override fun getItemCount(): Int = tvShows.size
+    fun getSwipedData(swipedPosition: Int): TvShow? = getItem(swipedPosition)
 
     inner class FavoriteTvShowViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(tvShow: TvShow){

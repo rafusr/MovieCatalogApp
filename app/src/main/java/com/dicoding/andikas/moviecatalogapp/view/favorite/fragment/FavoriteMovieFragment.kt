@@ -2,24 +2,23 @@ package com.dicoding.andikas.moviecatalogapp.view.favorite.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.andikas.moviecatalogapp.R
 import com.dicoding.andikas.moviecatalogapp.adapter.FavoriteMovieAdapter
-import com.dicoding.andikas.moviecatalogapp.adapter.MovieAdapter
 import com.dicoding.andikas.moviecatalogapp.model.movie.Movie
 import com.dicoding.andikas.moviecatalogapp.view.detail.DetailActivity
-import com.dicoding.andikas.moviecatalogapp.view.home.fragment.MovieFragment
 import com.dicoding.andikas.moviecatalogapp.viewmodel.FavoriteMovieViewModel
 import com.dicoding.andikas.moviecatalogapp.viewmodel.ViewModelFactory
-import com.dicoding.andikas.moviecatalogapp.vo.Resource
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_favorite_movie.*
-import kotlinx.android.synthetic.main.fragment_movie.*
 
 class FavoriteMovieFragment : Fragment() {
 
@@ -37,6 +36,7 @@ class FavoriteMovieFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        itemTouchHelper.attachToRecyclerView(rv_favorite_movie)
 
         progressBar(true)
         favoriteMovieViewModel = activity?.let { ViewModelProvider(it, ViewModelFactory.getInstance(activity!!))[FavoriteMovieViewModel::class.java] }!!
@@ -48,11 +48,12 @@ class FavoriteMovieFragment : Fragment() {
         })
     }
 
-    private fun recyclerViewConfig(listMovie: List<Movie>) {
+    private fun recyclerViewConfig(listMovie: PagedList<Movie>) {
         rv_favorite_movie.apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(activity, 2)
-            favoriteMovieAdapter = FavoriteMovieAdapter(listMovie)
+            favoriteMovieAdapter = FavoriteMovieAdapter()
+            favoriteMovieAdapter.submitList(listMovie)
             adapter = favoriteMovieAdapter
         }
 
@@ -76,5 +77,28 @@ class FavoriteMovieFragment : Fragment() {
             favorite_movie_progressbar.visibility = View.GONE
         }
     }
+    
+    private val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.Callback() {
+        override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int =
+            makeMovementFlags(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT)
+
+        override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder): Boolean = true
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            if (view != null) {
+                val swipedPosition = viewHolder.adapterPosition
+                val movie = favoriteMovieAdapter.getSwipedData(swipedPosition)
+                movie?.let { favoriteMovieViewModel.setFavorite(it) }
+
+                val snackbar = Snackbar.make(view as View, R.string.message_undo, Snackbar.LENGTH_SHORT)
+                snackbar.setAction(R.string.message_ok) { _ ->
+                    movie?.let { favoriteMovieViewModel.setFavorite(it) }
+                }
+                snackbar.show()
+            }
+        }
+
+    })
 
 }

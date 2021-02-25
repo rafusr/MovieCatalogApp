@@ -1,6 +1,7 @@
 package com.dicoding.andikas.moviecatalogapp.data.source.local
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import com.dicoding.andikas.moviecatalogapp.data.source.local.room.ContentDao
 import com.dicoding.andikas.moviecatalogapp.model.movie.Movie
 import com.dicoding.andikas.moviecatalogapp.model.tvshow.TvShow
@@ -15,9 +16,9 @@ class LocalDataSource private constructor(private val mContentDao: ContentDao){
     }
 
     //Movie
-    fun getMovies(): LiveData<List<Movie>> = mContentDao.getMovie()
+    fun getMovies(): DataSource.Factory<Int, Movie> = mContentDao.getMovie()
 
-    fun getFavoritedMovie(): LiveData<List<Movie>> = mContentDao.getFavoritedMovie()
+    fun getFavoritedMovie(): DataSource.Factory<Int, Movie> = mContentDao.getFavoritedMovie()
 
     fun getMovieById(movieId: String): LiveData<Movie> = mContentDao.getMovieById(movieId)
 
@@ -30,12 +31,11 @@ class LocalDataSource private constructor(private val mContentDao: ContentDao){
     fun updateMovie(movie: Movie) {
         mContentDao.updateMovie(movie)
     }
-    //
 
     //TvShow
-    fun getTvShows(): LiveData<List<TvShow>> = mContentDao.getTvShow()
+    fun getTvShows(): DataSource.Factory<Int, TvShow> = mContentDao.getTvShow()
 
-    fun getFavoritedTvShow(): LiveData<List<TvShow>> = mContentDao.getFavoritedTvShow()
+    fun getFavoritedTvShow(): DataSource.Factory<Int, TvShow> = mContentDao.getFavoritedTvShow()
 
     fun getTvShowById(tvShowId: String): LiveData<TvShow> = mContentDao.getTvShowById(tvShowId)
 
@@ -49,6 +49,4 @@ class LocalDataSource private constructor(private val mContentDao: ContentDao){
     fun updateTvShow(tvShow: TvShow) {
         mContentDao.updateTvShow(tvShow)
     }
-    //
-
 }

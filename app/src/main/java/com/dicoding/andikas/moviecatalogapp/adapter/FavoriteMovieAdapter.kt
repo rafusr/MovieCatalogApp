@@ -3,18 +3,30 @@ package com.dicoding.andikas.moviecatalogapp.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dicoding.andikas.moviecatalogapp.R
 import com.dicoding.andikas.moviecatalogapp.adapter.FavoriteMovieAdapter.*
 import com.dicoding.andikas.moviecatalogapp.model.movie.Movie
-import com.dicoding.andikas.moviecatalogapp.vo.Resource
 import kotlinx.android.synthetic.main.item_row.view.*
 
-class FavoriteMovieAdapter(private val movies : List<Movie>) : RecyclerView.Adapter<FavoriteMovieViewHolder>() {
+class FavoriteMovieAdapter : PagedListAdapter<Movie, FavoriteMovieViewHolder>(DIFF_CALLBACK) {
 
     companion object {
         private const val POSTER_URL = "https://image.tmdb.org/t/p/w500"
+
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Movie>() {
+            override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+                return oldItem == newItem
+            }
+
+        }
     }
 
     private lateinit var favoriteMovieViewClickListener: FavoriteMovieViewClickListener
@@ -23,16 +35,19 @@ class FavoriteMovieAdapter(private val movies : List<Movie>) : RecyclerView.Adap
         this.favoriteMovieViewClickListener = favoriteMovieViewClickListener
     }
 
+    fun getSwipedData(swipedPosition: Int): Movie? = getItem(swipedPosition)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteMovieViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_row, parent, false)
         return FavoriteMovieViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: FavoriteMovieViewHolder, position: Int) {
-        holder.bind(movies[position])
+        val favMovie = getItem(position)
+        if (favMovie != null) {
+            holder.bind(favMovie)
+        }
     }
-
-    override fun getItemCount(): Int = movies.size
 
     inner class FavoriteMovieViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(movie : Movie){
