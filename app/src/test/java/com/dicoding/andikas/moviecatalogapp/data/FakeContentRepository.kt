@@ -1,16 +1,15 @@
 package com.dicoding.andikas.moviecatalogapp.data
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.dicoding.andikas.moviecatalogapp.data.source.ContentDataSource
 import com.dicoding.andikas.moviecatalogapp.data.source.NetworkBoundResource
 import com.dicoding.andikas.moviecatalogapp.data.source.local.LocalDataSource
 import com.dicoding.andikas.moviecatalogapp.data.source.remote.ApiResponse
+import com.dicoding.andikas.moviecatalogapp.data.source.remote.RemoteDataSource
 import com.dicoding.andikas.moviecatalogapp.model.movie.Movie
 import com.dicoding.andikas.moviecatalogapp.model.tvshow.TvShow
-import com.dicoding.andikas.moviecatalogapp.data.source.remote.RemoteDataSource
 import com.dicoding.andikas.moviecatalogapp.utils.AppExecutors
 import com.dicoding.andikas.moviecatalogapp.vo.Resource
 
