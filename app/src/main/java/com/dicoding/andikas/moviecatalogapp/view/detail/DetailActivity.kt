@@ -21,7 +21,6 @@ class DetailActivity : AppCompatActivity() {
         const val EXTRA_TITLE = "extra_title"
         const val EXTRA_ID = "extra_id"
         const val EXTRA_TYPE = "extra_type"
-        const val EXTRA_ACTIVITY = "extra_activity"
 
         const val BACKDROP_PATH_URL = "https://image.tmdb.org/t/p/w500"
         const val POSTER_PATH_URL = "https://image.tmdb.org/t/p/w500"
@@ -103,7 +102,6 @@ class DetailActivity : AppCompatActivity() {
                     .load(backdropPath).error(R.drawable.ic_baseline_broken_image_24).placeholder(R.drawable.ic_baseline_sync_24)
                     .into(binding.imgBgMovies)
             binding.tvTitleDetail.text = movie.original_title
-            binding.tvGenreDetail.text = movie.genres?.get(0)?.name
             binding.tvReleaseDate.text = movie.release_date
             binding.tvOverview.text = movie.overview
 
@@ -133,7 +131,6 @@ class DetailActivity : AppCompatActivity() {
                     .load(backdropPath).error(R.drawable.ic_baseline_broken_image_24).placeholder(R.drawable.ic_baseline_sync_24)
                     .into(binding.imgBgMovies)
             binding.tvTitleDetail.text = tvShow.original_name
-            binding.tvGenreDetail.text = tvShow.genres?.get(0)?.name
             binding.tvReleaseDate.text = tvShow.first_air_date
             binding.tvOverview.text = tvShow.overview
 

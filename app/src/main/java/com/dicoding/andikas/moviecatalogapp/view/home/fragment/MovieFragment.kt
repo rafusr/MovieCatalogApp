@@ -23,7 +23,6 @@ class MovieFragment : Fragment() {
 
     companion object {
         const val MOVIE_TYPE = "movie_type"
-        const val EXTRA_MAIN_ACTIVITY = "extra_main_activity"
     }
 
     private lateinit var movieAdapter: MovieAdapter
@@ -71,7 +70,6 @@ class MovieFragment : Fragment() {
                         .putExtra(DetailActivity.EXTRA_TITLE, movie.original_title)
                         .putExtra(DetailActivity.EXTRA_ID, movie.id.toString())
                         .putExtra(DetailActivity.EXTRA_TYPE, MOVIE_TYPE)
-                        .putExtra(DetailActivity.EXTRA_ACTIVITY, EXTRA_MAIN_ACTIVITY)
 
                 startActivity(intent)
             }

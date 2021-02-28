@@ -23,7 +23,6 @@ class TvShowFragment : Fragment() {
 
     companion object {
         const val TVSHOW_TYPE = "tvshow_type"
-        const val EXTRA_MAIN_ACTIVITY = "extra_main_activity"
     }
 
     private lateinit var tvShowAdapter: TvShowAdapter
@@ -71,7 +70,6 @@ class TvShowFragment : Fragment() {
                         .putExtra(DetailActivity.EXTRA_TITLE, tvShow.original_name)
                         .putExtra(DetailActivity.EXTRA_ID, tvShow.id.toString())
                         .putExtra(DetailActivity.EXTRA_TYPE, TVSHOW_TYPE)
-                        .putExtra(DetailActivity.EXTRA_ACTIVITY, EXTRA_MAIN_ACTIVITY)
 
                 startActivity(intent)
             }

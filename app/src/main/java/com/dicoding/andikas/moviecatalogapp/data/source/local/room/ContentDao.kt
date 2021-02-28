@@ -9,7 +9,6 @@ import com.dicoding.andikas.moviecatalogapp.model.tvshow.TvShow
 @Dao
 interface ContentDao {
 
-    //Movie
     @Query("SELECT * FROM movieentities")
     fun getMovie(): DataSource.Factory<Int, Movie>
 
@@ -26,7 +25,6 @@ interface ContentDao {
     @Update
     fun updateMovie(movie: Movie)
 
-    //TvShow
     @Query("SELECT * FROM tvshowentities")
     fun getTvShow(): DataSource.Factory<Int, TvShow>
 

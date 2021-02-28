@@ -1,9 +1,7 @@
 package com.dicoding.andikas.moviecatalogapp
 
 import com.dicoding.andikas.moviecatalogapp.model.movie.Movie
-import com.dicoding.andikas.moviecatalogapp.model.movie.MovieGenre
 import com.dicoding.andikas.moviecatalogapp.model.tvshow.TvShow
-import com.dicoding.andikas.moviecatalogapp.model.tvshow.TvShowGenre
 
 object FakeContent {
 

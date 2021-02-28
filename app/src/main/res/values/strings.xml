@@ -17,4 +17,6 @@
     <string name="home">Home</string>
     <string name="message_undo">Batalkan Menghapus Item?</string>
     <string name="message_ok">OK</string>
+    <string name="poster">Poster</string>
+    <string name="image_poster_detail">Image_Poster_Detail</string>
 </resources>

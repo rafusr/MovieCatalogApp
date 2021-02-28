@@ -2,9 +2,7 @@ package com.dicoding.andikas.moviecatalogapp.model.movie
 
 import android.os.Parcelable
 import androidx.annotation.NonNull
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -17,9 +15,6 @@ data class Movie(
 
         @ColumnInfo(name = "backdropPath")
         val backdrop_path: String,
-
-        @ColumnInfo(name = "genres")
-        val genres: List<MovieGenre>?,
 
         @ColumnInfo(name = "title")
         val original_title: String,

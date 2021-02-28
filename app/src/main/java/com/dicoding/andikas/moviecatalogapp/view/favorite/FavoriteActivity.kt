@@ -30,6 +30,7 @@ class FavoriteActivity : AppCompatActivity() {
                 R.id.home_nav -> {
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
+                    finish()
                     return@OnNavigationItemSelectedListener true
                 }
 

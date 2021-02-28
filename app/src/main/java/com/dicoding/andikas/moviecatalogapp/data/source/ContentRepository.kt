@@ -51,7 +51,6 @@ class ContentRepository private constructor(
                     movieList.add(Movie(
                         response.id,
                         response.backdrop_path,
-                        response.genres,
                         response.original_title,
                         response.overview,
                         response.poster_path,
@@ -125,7 +124,6 @@ class ContentRepository private constructor(
                         response.id,
                         response.backdrop_path,
                         response.first_air_date,
-                        response.genres,
                         response.original_name,
                         response.overview,
                         response.poster_path,

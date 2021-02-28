@@ -28,6 +28,7 @@ class LocalDataSource private constructor(private val mContentDao: ContentDao){
         movie.favorited = newState
         mContentDao.updateMovie(movie)
     }
+
     fun updateMovie(movie: Movie) {
         mContentDao.updateMovie(movie)
     }

@@ -22,10 +22,6 @@ class DetailViewModel(private val contentRepository: ContentRepository): ViewMod
         this.tvShowId.value = tvShowId
     }
 
-    fun getMovieDetail(movieId: String): LiveData<Resource<Movie>> = contentRepository.getMovieDetail(movieId)
-
-    fun getTvShowDetail(tvShowId: String): LiveData<Resource<TvShow>> = contentRepository.getTvShowDetail(tvShowId)
-
     var movies: LiveData<Resource<Movie>> = Transformations.switchMap(movieId) {mMovieId ->
         contentRepository.getMovieDetail(mMovieId)
     }

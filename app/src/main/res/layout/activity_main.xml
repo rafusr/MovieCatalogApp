@@ -26,16 +26,17 @@
         android:id="@+id/main_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="60dp"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/home_bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/purple_700"
-        app:itemTextColor="@color/white"
-        app:itemIconTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/main_viewpager"
+        app:itemTextColor="@color/bottom_nav_indicator"
+        app:itemIconTint="@color/bottom_nav_indicator"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_navigation"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,9 +21,6 @@ data class TvShow(
     @ColumnInfo(name = "releaseDate")
         val first_air_date: String,
 
-    @ColumnInfo(name = "genres")
-        val genres: List<TvShowGenre>?,
-
     @ColumnInfo(name = "title")
         val original_name: String,
 

@@ -22,10 +22,6 @@ import kotlinx.android.synthetic.main.fragment_favorite_tv_show.*
 
 class FavoriteTvShowFragment : Fragment() {
 
-    companion object {
-        const val FAVORITE_TVSHOW_TYPE = "tvshow_type"
-    }
-
     private lateinit var favoriteTvShowAdapter: FavoriteTvShowAdapter
     private lateinit var favoriteTvShowViewModel: FavoriteTvShowViewModel
 
@@ -65,7 +61,6 @@ class FavoriteTvShowFragment : Fragment() {
                 val intent = Intent(activity, DetailActivity::class.java)
                         .putExtra(DetailActivity.EXTRA_TITLE, tvShow.original_name)
                         .putExtra(DetailActivity.EXTRA_ID, tvShow.id.toString())
-                        .putExtra(DetailActivity.EXTRA_TYPE, FAVORITE_TVSHOW_TYPE)
 
                 startActivity(intent)
             }
