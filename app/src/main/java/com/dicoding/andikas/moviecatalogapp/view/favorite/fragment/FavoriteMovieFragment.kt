@@ -22,6 +22,10 @@ import kotlinx.android.synthetic.main.fragment_favorite_movie.*
 
 class FavoriteMovieFragment : Fragment() {
 
+    companion object {
+        const val FAV_MOVIE_TYPE = "movie_type"
+    }
+
     private lateinit var favoriteMovieAdapter: FavoriteMovieAdapter
     private lateinit var favoriteMovieViewModel: FavoriteMovieViewModel
 
@@ -58,6 +62,7 @@ class FavoriteMovieFragment : Fragment() {
                 val intent = Intent(activity, DetailActivity::class.java)
                     .putExtra(DetailActivity.EXTRA_TITLE, movie.original_title)
                     .putExtra(DetailActivity.EXTRA_ID, movie.id.toString())
+                    .putExtra(DetailActivity.EXTRA_TYPE, FAV_MOVIE_TYPE)
 
                 startActivity(intent)
             }

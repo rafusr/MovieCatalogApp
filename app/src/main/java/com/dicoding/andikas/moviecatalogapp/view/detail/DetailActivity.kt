@@ -139,8 +139,6 @@ class DetailActivity : AppCompatActivity() {
                 detailViewModel.setTvShowFavorite()
             }
         }
-
-
     }
 
     private fun setFavoriteState(state: Boolean){
