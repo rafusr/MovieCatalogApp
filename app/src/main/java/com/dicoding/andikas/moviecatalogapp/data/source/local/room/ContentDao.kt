@@ -25,6 +25,7 @@ interface ContentDao {
     @Update
     fun updateMovie(movie: Movie)
 
+
     @Query("SELECT * FROM tvshowentities")
     fun getTvShow(): DataSource.Factory<Int, TvShow>
 

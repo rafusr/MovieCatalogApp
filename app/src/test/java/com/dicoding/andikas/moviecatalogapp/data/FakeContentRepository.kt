@@ -87,9 +87,9 @@ class FakeContentRepository(
         return LivePagedListBuilder(localDataSource.getFavoritedMovie(), config).build()
     }
 
-    override fun setMovieFavorite(movie: Movie, state: Boolean) {
-        appExecutors.diskIO().execute { localDataSource.setMovieFavorite(movie, state) }
-    }
+    override fun setMovieFavorite(movie: Movie, state: Boolean) =
+            // appExecutors.diskIO().execute { localDataSource.setMovieFavorite(movie, state)
+            localDataSource.setMovieFavorite(movie, state)
 
     override fun getTvShow(): LiveData<Resource<PagedList<TvShow>>> {
         return object : NetworkBoundResource<PagedList<TvShow>, List<TvShow>>(appExecutors) {
@@ -159,54 +159,7 @@ class FakeContentRepository(
         return LivePagedListBuilder(localDataSource.getFavoritedTvShow(), config).build()
     }
 
-    override fun setTvShowFavorite(tvShow: TvShow, state: Boolean) {
-        appExecutors.diskIO().execute { localDataSource.setTvShowFavorite(tvShow, state) }
-    }
-
-/*
-    private val listMovies = MutableLiveData<List<Movie>>()
-    private val movies = MutableLiveData<Movie>()
-    private val listTvShows = MutableLiveData<List<TvShow>>()
-    private val tvShows = MutableLiveData<TvShow>()
-
-    override fun getMovie(): LiveData<List<Movie>> {
-        remoteDataSource.getMovies(object : RemoteDataSource.MovieCallback {
-            override fun onResponse(movieResponse: List<Movie>) {
-                listMovies.postValue(movieResponse)
-            }
-
-        })
-        return listMovies
-    }
-
-    override fun getMovieDetail(movieId: String): LiveData<Movie> {
-        remoteDataSource.getMoviesDetails(movieId, object : RemoteDataSource.MovieDetailCallback {
-            override fun onResponse(movieDetailResponse: Movie) {
-                movies.postValue(movieDetailResponse)
-            }
-
-        })
-        return movies
-    }
-
-    override fun getTvShow(): LiveData<List<TvShow>> {
-        remoteDataSource.getTvShows(object : RemoteDataSource.TvShowCallback {
-            override fun onResponse(tvShowResponse: List<TvShow>) {
-                listTvShows.postValue(tvShowResponse)
-            }
-
-        })
-        return listTvShows
-    }
-
-    override fun getTvShowDetail(tvShowId: String): LiveData<TvShow> {
-        remoteDataSource.getTvShowsDetails(tvShowId, object : RemoteDataSource.TvShowDetailCallback {
-            override fun onResponse(tvShowDetail: TvShow) {
-                tvShows.postValue(tvShowDetail)
-            }
-
-        })
-        return tvShows
-    }
-*/
+    override fun setTvShowFavorite(tvShow: TvShow, state: Boolean) =
+            // appExecutors.diskIO().execute { localDataSource.setTvShowFavorite(tvShow, state) }
+            localDataSource.setTvShowFavorite(tvShow, state)
 }
