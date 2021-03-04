@@ -8,13 +8,12 @@ import com.dicoding.andikas.moviecatalogapp.model.movie.Movie
 import com.dicoding.andikas.moviecatalogapp.model.tvshow.TvShow
 import com.dicoding.andikas.moviecatalogapp.utils.FakeContent
 import com.dicoding.andikas.moviecatalogapp.vo.Resource
-import com.nhaarman.mockitokotlin2.verify
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
+import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
@@ -22,9 +21,13 @@ class DetailViewModelTest {
 
     private lateinit var detailViewModel: DetailViewModel
     private val dummyMovie = Resource.success(FakeContent.generateDummyDetailMovie())
-    private val movieId = dummyMovie.data?.id.toString()
+    private val movieData = dummyMovie.data
+    private val movieId = movieData?.id.toString()
+    private val movieState = movieData?.favorited
     private val dummyTvShow = Resource.success(FakeContent.generateDummyDetailTvShow())
-    private val tvShowId = dummyTvShow.data?.id.toString()
+    private val tvShowData = dummyTvShow.data
+    private val tvShowId = tvShowData?.id.toString()
+    private val tvShowState = tvShowData?.favorited
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -58,14 +61,42 @@ class DetailViewModelTest {
     }
 
     @Test
-    fun getTvShowDetail() {
-        val dummyDetailTvShow = Resource.success(FakeContent.generateDummyDetailTvShow())
-        val tvShowDetail = MutableLiveData<Resource<TvShow>>()
-        tvShowDetail.value = dummyDetailTvShow
-        val id = tvShowDetail.value!!.data?.id.toString()
+    fun setMovieFavorite() {
+        doNothing().`when`(contentRepository).setMovieFavorite(movieData!!, movieState!!)
+        detailViewModel.setMovieFavorite(movieData, movieState)
 
-        `when`(contentRepository.getTvShowDetail(id)).thenReturn(tvShowDetail)
-        contentRepository.getTvShowDetail(id).observeForever(tvShowObserver)
-        verify(tvShowObserver).onChanged(dummyDetailTvShow)
+        verify(contentRepository, times(1)).setMovieFavorite(movieData, movieState)
+    }
+
+    @Test
+    fun getTvShowDetail() {
+        val tvShowDetail = MutableLiveData<Resource<TvShow>>()
+        tvShowDetail.value = dummyTvShow
+
+        `when`(contentRepository.getTvShowDetail(tvShowId)).thenReturn(tvShowDetail)
+        detailViewModel.tvShows.observeForever(tvShowObserver)
+        verify(tvShowObserver).onChanged(dummyTvShow)
+    }
+
+    @Test
+    fun setTvShowFavorite() {
+        doNothing().`when`(contentRepository).setTvShowFavorite(tvShowData!!, tvShowState!!)
+        detailViewModel.setTvShowFavorite(tvShowData, tvShowState)
+
+        verify(contentRepository, times(1)).setTvShowFavorite(tvShowData, tvShowState)
+
+        /*
+        doAnswer { invocation ->
+            (invocation.arguments[0] as TvShow)
+            null
+        }.`when`(contentRepository).setTvShowFavorite(dataTvShow!!, tvShowState!!)
+        detailViewModel.setTvShowFavorite()
+
+        verify(contentRepository).setTvShowFavorite(dataTvShow, tvShowState)
+         */
+        // doNothing().`when`(contentRepository).setTvShowFavorite(dataTvShow!!, tvShowState!!)
+        // detailViewModel.setTvShowFavorite()
+
+        // verify(contentRepository).setTvShowFavorite(dataTvShow, tvShowState)
     }
 }

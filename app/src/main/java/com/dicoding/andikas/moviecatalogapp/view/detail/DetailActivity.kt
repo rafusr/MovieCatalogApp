@@ -107,7 +107,7 @@ class DetailActivity : AppCompatActivity() {
 
             binding.btnFavorite.setOnClickListener {
                 setFavoriteState(!state)
-                detailViewModel.setMovieFavorite()
+                detailViewModel.setMovieFavorite(movie, !movie.favorited)
             }
         }
 
@@ -136,7 +136,7 @@ class DetailActivity : AppCompatActivity() {
 
             binding.btnFavorite.setOnClickListener {
                 setFavoriteState(!state)
-                detailViewModel.setTvShowFavorite()
+                detailViewModel.setTvShowFavorite(tvShow, !tvShow.favorited)
             }
         }
     }
