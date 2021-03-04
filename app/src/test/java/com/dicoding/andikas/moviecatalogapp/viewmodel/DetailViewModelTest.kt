@@ -84,19 +84,5 @@ class DetailViewModelTest {
         detailViewModel.setTvShowFavorite(tvShowData, tvShowState)
 
         verify(contentRepository, times(1)).setTvShowFavorite(tvShowData, tvShowState)
-
-        /*
-        doAnswer { invocation ->
-            (invocation.arguments[0] as TvShow)
-            null
-        }.`when`(contentRepository).setTvShowFavorite(dataTvShow!!, tvShowState!!)
-        detailViewModel.setTvShowFavorite()
-
-        verify(contentRepository).setTvShowFavorite(dataTvShow, tvShowState)
-         */
-        // doNothing().`when`(contentRepository).setTvShowFavorite(dataTvShow!!, tvShowState!!)
-        // detailViewModel.setTvShowFavorite()
-
-        // verify(contentRepository).setTvShowFavorite(dataTvShow, tvShowState)
     }
 }
