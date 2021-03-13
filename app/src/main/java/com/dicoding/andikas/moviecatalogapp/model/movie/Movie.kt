@@ -1,11 +1,10 @@
 package com.dicoding.andikas.moviecatalogapp.model.movie
 
-import android.os.Parcelable
 import androidx.annotation.NonNull
-import androidx.room.*
-import kotlinx.android.parcel.Parcelize
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-@Parcelize
 @Entity(tableName = "movieentities")
 data class Movie(
         @PrimaryKey
@@ -30,4 +29,4 @@ data class Movie(
 
         @ColumnInfo(name = "favorited")
         var favorited: Boolean
-) : Parcelable
+)

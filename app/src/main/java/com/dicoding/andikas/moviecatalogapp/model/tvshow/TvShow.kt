@@ -1,13 +1,10 @@
 package com.dicoding.andikas.moviecatalogapp.model.tvshow
 
-import android.os.Parcelable
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.android.parcel.Parcelize
 
-@Parcelize
 @Entity(tableName = "tvshowentities")
 data class TvShow(
     @PrimaryKey
@@ -32,4 +29,4 @@ data class TvShow(
 
     @ColumnInfo(name = "favorited")
         var favorited: Boolean
-) : Parcelable
+)
